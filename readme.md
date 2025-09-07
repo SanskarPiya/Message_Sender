@@ -10,6 +10,13 @@
 - **Backend**: A Node.js server using the Express framework to handle HTTP requests.
 - **Data Storage**: Messages are stored in a `message.json` file on the server.
 
+## 🌐 Live Demo (Static Hosting)
+
+You can view the static frontend here:  
+👉 [Message_Sender on GitHub Pages](https://sanskarpiya.github.io/Message_Sender/)
+
+**Note**: Since GitHub Pages only hosts static files, the backend (Node.js/Express) won’t run there. For full functionality, please set it up locally.
+
 ## 🛠️ How to Set Up Locally
 
 Follow these steps to set up the project on your local machine:
