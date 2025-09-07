@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
+const path = require("path");
 
 app.use(express.static("./public"));
-
 app.use(express.json());
 
 const data = [];
@@ -15,11 +15,19 @@ app.post("/api/message", (req, res) => {
       .status(400)
       .json({ success: false, response: "Invalid Message. Please try again." });
   }
-  console.log("Message Received");
-  data.push(name);
-  console.log(data);
 
-  fs.writeFileSync("./message.json", JSON.stringify(data, null, 2));
+  data.push(name);
+
+  fs.writeFile(
+    path.join(__dirname, "message.json"),
+    JSON.stringify(data, null, 2),
+    (err) => {
+      if (err) {
+        console.log("Error Occured while saving data to File");
+        console.error(err);
+      }
+    }
+  );
 
   res
     .status(200)
