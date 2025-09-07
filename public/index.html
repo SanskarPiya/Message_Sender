@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Sender | Sanskar Piya</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <form class="msg-sender-container">
+      <p class="heading">Message Sender</p>
+      <p class="label">Enter Message:</p>
+      <div class="input-field">
+        <input
+          id="msg"
+          class="msg-input"
+          placeholder="Enter your message"
+          autocomplete="on"
+          name="name"
+        />
+        <button type="submit" class="send-btn">Send to Backend</button>
+      </div>
+      <p class="response hide">Sucess Message</p>
+      <p class="error-response hide">Error Message</p>
+    </form>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const inputMsg = document.querySelector("#msg");
+      const sendBtn = document.querySelector(".send-btn");
+      const ResDisplay = document.querySelector(".response");
+      const errResDisplay = document.querySelector(".error-response");
+
+      sendBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const nameValue = inputMsg.value;
+        try {
+          const { data } = await axios.post("/api/message", {
+            name: nameValue,
+          });
+          console.log(data.response);
+          ResDisplay.classList.remove("hide");
+          errResDisplay.classList.add("hide");
+
+          ResDisplay.innerText = data.response;
+        } catch (error) {
+          errResDisplay.classList.remove("hide");
+          ResDisplay.classList.add("hide");
+
+          errResDisplay.innerText = error.response.data.response;
+        }
+
+        inputMsg.value = "";
+      });
+    </script>
+  </body>
+</html>
