@@ -3,10 +3,17 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 
-app.use(express.static("./public"));
 app.use(express.json());
 
 const data = [];
+
+app.get("/styles.css", (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, "styles.css"));
+});
+
+app.get("/", (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, "index.html"));
+});
 
 app.post("/api/message", (req, res) => {
   const { name } = req.body;
